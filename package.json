@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "Learn react with bhai!",
   "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build",
     "test": "jest"
   },
   "repository": {
