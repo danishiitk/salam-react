@@ -1,7 +1,7 @@
 .app-header-container {
   display: flex;
   justify-content: space-between;
-  border: 1px solid black;
+  border: 1px solid rgb(161, 161, 161);
   align-items: center;
 }
 .app-logo {
@@ -27,11 +27,14 @@ li {
   flex-wrap: wrap;
 }
 .res-card {
-  width: 300px;
-  border: 1px solid black;
+  width: 200px;
+  border-radius: 5px;
   margin: 5px;
   padding: 5px;
   background-color: rgb(238, 239, 240);
+  box-sizing: border-box; /* Ensures padding doesn't increase width */
+  overflow: hidden; /* Prevents any overflowing child */
+  cursor: pointer;
 }
 .res-img {
   width: 100%;
@@ -43,6 +46,32 @@ li {
 }
 .rest-info-container {
   display: flex;
-  gap: 10px;
-  margin-left: 10px;
+  flex-wrap: wrap; /* Ensures contents wrap inside the card */
+  gap: 5px;
+  margin: 10px 0 0 0;
+  max-width: 100%; /* Ensures it never exceeds card width */
+  overflow: hidden; /* Prevents content from leaking out */
+}
+.login-btn {
+  width: 70px;
+  font-size: 15px;
+  height: 20px;
+  border: none;
+  border-radius: 5px;
+  padding: 2px;
+  cursor: pointer;
+  margin-top: 4px;
+}
+.body-top-row {
+  display: flex;
+  justify-content: space-between;
+}
+.filter-btn {
+  margin-top: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+.search {
+  margin-top: 5px;
+  margin-right: 18px;
 }

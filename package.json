@@ -2,6 +2,7 @@
   "name": "salam-react",
   "version": "1.0.0",
   "description": "Learn react with bhai!",
+  "source": "index.html",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
@@ -27,6 +28,7 @@
   },
   "dependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^6.17.0"
   }
 }
