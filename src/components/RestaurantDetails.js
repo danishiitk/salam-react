@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { SWIGGY_RESTAURANT_DETAILS_API } from "../utils/constants";
@@ -6,6 +6,10 @@ import "../styles/RestaurantDetails.css";
 
 const RestaurantDetails = () => {
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const lat = searchParams.get("lat");
+  const long = searchParams.get("long");
+
   const [restaurant, setRestaurant] = useState({});
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +18,12 @@ const RestaurantDetails = () => {
   const fetchRestaurantDetails = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${SWIGGY_RESTAURANT_DETAILS_API}${id}`);
+      const response = await fetch(
+        `${SWIGGY_RESTAURANT_DETAILS_API.replace("latitude", lat).replace(
+          "longitude",
+          long
+        )}${id}`
+      );
       if (!response.ok) throw new Error("Network response was not ok");
 
       const jsonResponse = await response.json();
@@ -46,7 +55,7 @@ const RestaurantDetails = () => {
 
   useEffect(() => {
     fetchRestaurantDetails();
-  }, [id]);
+  }, [id, lat, long]);
 
   if (loading) return <Shimmer />;
 

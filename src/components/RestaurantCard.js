@@ -8,10 +8,15 @@ const RestaurantCard = ({
   cuisines,
   cloudinaryImageId,
   avgRating,
+  lat,
+  long,
 }) => {
   const navigate = useNavigate();
   return (
-    <div className="res-card" onClick={() => navigate(`/restaurants/${id}`)}>
+    <div
+      className="res-card"
+      onClick={() => navigate(`/restaurants/${id}?lat=${lat}&long=${long}`)}
+    >
       <img
         className="res-img"
         alt="Res Image"

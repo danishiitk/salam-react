@@ -6,6 +6,8 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
+    "start-serve": "npm run build && npx serve dist",
+    "build-prod": "NODE_ENV=production parcel build index.html",
     "test": "jest"
   },
   "repository": {
