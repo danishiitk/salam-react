@@ -8,7 +8,6 @@ const useRestaurantList = () => {
   const [city, setCity] = useState("");
   const [error, setError] = useState(null);
   const { lat, long } = useUserLocation();
-  console.log("[useRestaurantList]", { lat, long });
   useEffect(() => {
     console.log("[useRestaurantList] useEffect triggered");
     if (!lat || !long) {

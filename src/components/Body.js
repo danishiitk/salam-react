@@ -1,27 +1,26 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import useRestaurantList from "../utils/hooks/useRestaurantList";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
+import useOnlineStatus from "../utils/hooks/useOnlineStatus";
 
 const Body = () => {
-  console.log("[Body] Component rendered");
-
+  const online = useOnlineStatus();
   const { restaurants, city, error, lat, long } = useRestaurantList();
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState(null);
 
-  const filteredList = useMemo(() => {
-    console.log(
-      "[Body] Filtering restaurants with query:",
-      searchQuery,
-      "and filter:",
-      filter
-    );
+  const handleSearchChange = useCallback((e) => {
+    setSearchQuery(e.target.value);
+  }, []);
 
+  const filteredList = useMemo(() => {
     let list = restaurants;
+
     if (filter === "topRated") {
       list = list.filter((r) => r.info.avgRating >= 4.5);
     }
+
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       list = list.filter(
@@ -32,38 +31,50 @@ const Body = () => {
       );
     }
 
-    console.log("[Body] Filtered list length:", list.length);
     return list;
   }, [restaurants, searchQuery, filter]);
-  console.log("[Body] before return", filteredList);
+
+  if (!online) return <div role="alert">Please connect to Internet!</div>;
+
   return (
-    <div className="app-body">
+    <main className="app-body">
       {error ? (
-        <div className="error">{error}</div>
+        <div className="error" role="alert">
+          {error}
+        </div>
       ) : filteredList.length === 0 ? (
         <Shimmer />
       ) : (
         <>
-          <div className="body-top-row">
+          <section className="body-top-row">
             <button
               className="filter-btn"
               onClick={() => setFilter("topRated")}
+              aria-pressed={filter === "topRated"}
             >
               Top rated restaurants
             </button>
+            {filter && (
+              <button className="filter-btn" onClick={() => setFilter(null)}>
+                Clear filter
+              </button>
+            )}
             <div>{city}</div>
             <div className="search">
               <input
                 type="text"
                 value={searchQuery}
                 placeholder="Search by name or cuisine"
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleSearchChange}
                 aria-label="Search Restaurants"
               />
-              <button className="search-btn">Search</button>
+              <button className="search-btn" disabled={!searchQuery.trim()}>
+                Search
+              </button>
             </div>
-          </div>
-          <div className="res-container">
+          </section>
+
+          <section className="res-container">
             {filteredList.map((restaurant) => (
               <RestaurantCard
                 key={restaurant.info.id}
@@ -77,10 +88,10 @@ const Body = () => {
                 long={long}
               />
             ))}
-          </div>
+          </section>
         </>
       )}
-    </div>
+    </main>
   );
 };
 

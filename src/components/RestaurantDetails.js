@@ -1,62 +1,10 @@
-import { useParams, useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import Shimmer from "./Shimmer";
-import { SWIGGY_RESTAURANT_DETAILS_API } from "../utils/constants";
 import "../styles/RestaurantDetails.css";
+import useRestaurantDetails from "../utils/hooks/useRestaurantDetails";
+import Shimmer from "./Shimmer";
 
 const RestaurantDetails = () => {
-  const { id } = useParams();
-  const [searchParams] = useSearchParams();
-  const lat = searchParams.get("lat");
-  const long = searchParams.get("long");
-
-  const [restaurant, setRestaurant] = useState({});
-  const [menuItems, setMenuItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  const fetchRestaurantDetails = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        `${SWIGGY_RESTAURANT_DETAILS_API.replace("latitude", lat).replace(
-          "longitude",
-          long
-        )}${id}`
-      );
-      if (!response.ok) throw new Error("Network response was not ok");
-
-      const jsonResponse = await response.json();
-
-      const restaurantInfo =
-        jsonResponse?.data?.cards?.[2]?.card?.card?.info || {};
-      console.log(jsonResponse);
-      console.log(restaurantInfo);
-      const menuCards =
-        jsonResponse?.data?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR
-          ?.cards || [];
-
-      const extractedMenuItems = menuCards
-        .map((card) => card.card?.card?.itemCards)
-        .filter(Boolean)
-        .flat()
-        .map((itemCard) => itemCard.card?.info)
-        .filter(Boolean);
-
-      setRestaurant(restaurantInfo);
-      setMenuItems(extractedMenuItems);
-    } catch (err) {
-      console.error("Error fetching restaurant:", err);
-      setError("Something went wrong while fetching restaurant details.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchRestaurantDetails();
-  }, [id, lat, long]);
-
+  console.log("[RestaurantDetails] rendered!");
+  const { restaurant, menuItems, error, loading } = useRestaurantDetails();
   if (loading) return <Shimmer />;
 
   if (error)
