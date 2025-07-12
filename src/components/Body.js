@@ -1,8 +1,8 @@
-import { useMemo, useState, useCallback } from "react";
+import { useCallback, useMemo, useState } from "react";
+import useOnlineStatus from "../utils/hooks/useOnlineStatus";
 import useRestaurantList from "../utils/hooks/useRestaurantList";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
-import useOnlineStatus from "../utils/hooks/useOnlineStatus";
 
 const Body = () => {
   const online = useOnlineStatus();
@@ -42,23 +42,24 @@ const Body = () => {
         <div className="error" role="alert">
           {error}
         </div>
-      ) : filteredList.length === 0 ? (
-        <Shimmer />
       ) : (
         <>
           <section className="body-top-row">
-            <button
-              className="filter-btn"
-              onClick={() => setFilter("topRated")}
-              aria-pressed={filter === "topRated"}
-            >
-              Top rated restaurants
-            </button>
-            {filter && (
-              <button className="filter-btn" onClick={() => setFilter(null)}>
-                Clear filter
+            <div className="filter-grp">
+              <button
+                className="filter-btn"
+                onClick={() => setFilter("topRated")}
+                aria-pressed={filter === "topRated"}
+              >
+                Top rated restaurants
               </button>
-            )}
+              {filter && (
+                <button className="filter-btn" onClick={() => setFilter(null)}>
+                  Clear filter
+                </button>
+              )}
+            </div>
+
             <div>{city}</div>
             <div className="search">
               <input
@@ -73,22 +74,25 @@ const Body = () => {
               </button>
             </div>
           </section>
-
-          <section className="res-container">
-            {filteredList.map((restaurant) => (
-              <RestaurantCard
-                key={restaurant.info.id}
-                id={restaurant.info.id}
-                resName={restaurant.info.name}
-                deliveryTime={restaurant.info.sla.deliveryTime}
-                cuisines={restaurant.info.cuisines}
-                cloudinaryImageId={restaurant.info.cloudinaryImageId}
-                avgRating={restaurant.info.avgRating}
-                lat={lat}
-                long={long}
-              />
-            ))}
-          </section>
+          {filteredList.length === 0 ? (
+            <Shimmer />
+          ) : (
+            <section className="res-container">
+              {filteredList.map((restaurant) => (
+                <RestaurantCard
+                  key={restaurant.info.id}
+                  id={restaurant.info.id}
+                  resName={restaurant.info.name}
+                  deliveryTime={restaurant.info.sla.deliveryTime}
+                  cuisines={restaurant.info.cuisines}
+                  cloudinaryImageId={restaurant.info.cloudinaryImageId}
+                  avgRating={restaurant.info.avgRating}
+                  lat={lat}
+                  long={long}
+                />
+              ))}
+            </section>
+          )}
         </>
       )}
     </main>

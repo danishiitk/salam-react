@@ -1,3 +1,6 @@
+/* ------------------------
+   ✅ Custom CSS Here
+------------------------ */
 .app-header-container {
   display: flex;
   justify-content: space-between;
@@ -65,6 +68,11 @@ li {
 .body-top-row {
   display: flex;
   justify-content: space-between;
+}
+.filter-grp {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 .filter-btn {
   margin-top: 5px;
