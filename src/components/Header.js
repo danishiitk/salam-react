@@ -1,14 +1,21 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { LOGO_URL } from "../utils/constants";
-import { Link } from "react-router-dom";
+
 const Header = () => {
   const [btnName, setBtnName] = useState("Login");
   console.log("Header Rendered");
+  const navigate = useNavigate();
   return (
-    <div className="app-header-container">
-      <img className="app-logo" alt="App Logo" src={LOGO_URL}></img>
-      <nav className="header-link-container">
-        <ul>
+    <div id="header" className="flex justify-between bg-blue-50">
+      <img
+        className="w-40 cursor-pointer"
+        alt="App Logo"
+        src={LOGO_URL}
+        onClick={() => navigate("/")}
+      ></img>
+      <nav>
+        <ul className="flex p-10 gap-3">
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -19,7 +26,7 @@ const Header = () => {
             <Link to="/about">About us</Link>
           </li>
           <li>
-            <Link to="/contact">Contact Us</Link>
+            <Link to="/contact">Contact us</Link>
           </li>
           <button
             className="login-btn"

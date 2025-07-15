@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import "../../styles/RestaurantDetails.css";
 import { SWIGGY_RESTAURANT_DETAILS_API } from "../constants";
 import { useParams, useSearchParams } from "react-router-dom";
 const useRestaurantDetails = () => {
   console.log("[useRestaurantDetails] hook initialized!");
   const [restaurant, setRestaurant] = useState({});
-  const [menuItems, setMenuItems] = useState([]);
+  const [categories, setCategories] = useState([]);
   const { id } = useParams();
   const [searchParams] = useSearchParams();
   const lat = searchParams.get("lat");
@@ -26,22 +25,21 @@ const useRestaurantDetails = () => {
       if (!response.ok) throw new Error("Network response was not ok");
 
       const jsonResponse = await response.json();
-
+      console.log("response", jsonResponse);
       const restaurantInfo =
         jsonResponse?.data?.cards?.[2]?.card?.card?.info || {};
       const menuCards =
         jsonResponse?.data?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR
           ?.cards || [];
 
-      const extractedMenuItems = menuCards
-        .map((card) => card.card?.card?.itemCards)
-        .filter(Boolean)
-        .flat()
-        .map((itemCard) => itemCard.card?.info)
-        .filter(Boolean);
+      const categories = menuCards.filter(
+        (card) =>
+          card.card?.card?.["@type"] ===
+          "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+      );
 
       setRestaurant(restaurantInfo);
-      setMenuItems(extractedMenuItems);
+      setCategories(categories);
     } catch (err) {
       console.error("Error fetching restaurant:", err);
       setError("Something went wrong while fetching restaurant details.");
@@ -54,7 +52,9 @@ const useRestaurantDetails = () => {
     console.log("[useRestaurantDetails] useEffect triggered!");
     fetchRestaurantDetails();
   }, [id, lat, long]);
-  return { restaurant, menuItems, loading, error };
+  console.log("restaurant", restaurant);
+  console.log("categories", categories);
+  return { restaurant, categories, loading, error };
 };
 
 export default useRestaurantDetails;

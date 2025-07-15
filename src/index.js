@@ -1,16 +1,14 @@
 import ReactDOM from "react-dom/client";
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import AboutClass from "./src/components/AboutClass";
-import Body from "./src/components/Body";
-import Contact from "./src/components/Contact";
-import Error from "./src/components/Error";
-import AppLayout from "./src/components/App";
+import AboutClass from "./components/AboutClass";
+import Body from "./components/Body";
+import Contact from "./components/Contact";
+import Error from "./components/Error";
+import AppLayout from "./components/App";
 import "./index.css";
-const Grocery = lazy(() => import("./src/components/Grocery"));
-const RestaurantDetails = lazy(() =>
-  import("./src/components/RestaurantDetails")
-);
+const Grocery = lazy(() => import("./components/Grocery"));
+const RestaurantDetails = lazy(() => import("./components/RestaurantDetails"));
 const routeConfig = createBrowserRouter([
   {
     path: "/",

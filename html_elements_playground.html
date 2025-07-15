@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML Elements Playground</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 2rem;
+        line-height: 1.6;
+      }
+      section {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+      }
+      h2 {
+        color: #2a7ae2;
+      }
+      figure {
+        margin: 0;
+      }
+      figcaption {
+        font-size: 0.9em;
+        color: #555;
+      }
+      nav a {
+        margin-right: 1rem;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+      th,
+      td {
+        border: 1px solid #aaa;
+        padding: 0.5rem;
+        text-align: left;
+      }
+      .box {
+        border: 2px dashed #777;
+        padding: 0.5rem;
+        margin: 0.25rem 0;
+        background: #f9f9f9;
+      }
+      .block-demo {
+        background: #d1e7dd;
+      }
+      .inline-demo {
+        background: #fff3cd;
+        display: inline;
+      }
+      .inline-block-demo {
+        background: #cfe2ff;
+        display: inline-block;
+        padding: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to the HTML Elements Playground</h1>
+      <p>
+        This playground is your complete visual reference for learning HTML —
+        block vs inline, forms, structure, text, media, categorization, and
+        more!
+      </p>
+    </header>
+
+    <nav>
+      <a href="#structure">Structure</a>
+      <a href="#text">Text</a>
+      <a href="#media">Media</a>
+      <a href="#form">Forms</a>
+      <a href="#display">Display Types</a>
+      <a href="#reference">Cheatsheet</a>
+      <a href="#categories">Categorization</a>
+      <a href="#theory">HTML Theory</a>
+    </nav>
+
+    <main>
+      <section id="structure">
+        <h2>🏗️ Structural Elements</h2>
+        <article>
+          <h3>Article Inside Section</h3>
+          <p>
+            This is an <code>&lt;article&gt;</code> inside a
+            <code>&lt;section&gt;</code>. Use <code>&lt;section&gt;</code> for
+            grouping and <code>&lt;article&gt;</code> for standalone chunks.
+          </p>
+        </article>
+        <aside>
+          <code>&lt;aside&gt;</code> — extra info not part of main content.
+        </aside>
+      </section>
+
+      <section id="text">
+        <h2>📝 Text Content Elements</h2>
+        <h1>Heading 1</h1>
+        <h2>Heading 2</h2>
+        <h3>Heading 3</h3>
+        <p>
+          This is a paragraph with <strong>strong</strong> and
+          <em>emphasis</em> and a <span style="color: red">red span</span>.
+        </p>
+        <blockquote>"This is a blockquote for long quotes."</blockquote>
+        <hr />
+        <p>Line break demo:<br />See how this text moves down?</p>
+      </section>
+
+      <section id="media">
+        <h2>🎨 Media Elements</h2>
+        <figure>
+          <img src="https://via.placeholder.com/150" alt="Placeholder" />
+          <figcaption>This is a figure caption.</figcaption>
+        </figure>
+        <video width="300" controls>
+          <source
+            src="https://www.w3schools.com/html/mov_bbb.mp4"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+      </section>
+
+      <section id="form">
+        <h2>🖱️ Interactive Form Elements</h2>
+        <form>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" /><br /><br />
+
+          <label for="message">Message:</label><br />
+          <textarea id="message" name="message"></textarea><br /><br />
+
+          <label for="option">Choose one:</label>
+          <select id="option" name="option">
+            <option value="one">One</option>
+            <option value="two">Two</option></select
+          ><br /><br />
+
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+
+      <section id="display">
+        <h2>🧱 Display Types: Block vs Inline vs Inline-Block</h2>
+        <p>
+          <strong>"Starts on a new line"</strong> means the element takes up its
+          own horizontal space, pushing everything else below it.
+        </p>
+
+        <h3>Block Elements</h3>
+        <div class="box block-demo">Block Element 1</div>
+        <div class="box block-demo">Block Element 2</div>
+
+        <h3>Inline Elements</h3>
+        <p>
+          <span class="box inline-demo">Inline 1</span>
+          <span class="box inline-demo">Inline 2</span>
+          <span class="box inline-demo">Inline 3</span>
+        </p>
+
+        <h3>Inline-Block Elements</h3>
+        <div>
+          <div class="box inline-block-demo">Inline-Block 1</div>
+          <div class="box inline-block-demo">Inline-Block 2</div>
+          <div class="box inline-block-demo">Inline-Block 3</div>
+        </div>
+      </section>
+
+      <section id="reference">
+        <h2>📚 Cheatsheet of Common HTML Elements</h2>
+
+        <h3>1. Structural Elements</h3>
+        <ul>
+          <li>
+            <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>,
+            <code>&lt;body&gt;</code>
+          </li>
+          <li>
+            <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>,
+            <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>,
+            <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>,
+            <code>&lt;nav&gt;</code>
+          </li>
+        </ul>
+
+        <h3>2. Text Elements</h3>
+        <ul>
+          <li>
+            <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>,
+            <code>&lt;p&gt;</code>, <code>&lt;span&gt;</code>,
+            <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>,
+            <code>&lt;br&gt;</code>, <code>&lt;hr&gt;</code>,
+            <code>&lt;blockquote&gt;</code>
+          </li>
+        </ul>
+
+        <h3>3. Media Elements</h3>
+        <ul>
+          <li>
+            <code>&lt;img&gt;</code>, <code>&lt;video&gt;</code>,
+            <code>&lt;audio&gt;</code>, <code>&lt;iframe&gt;</code>,
+            <code>&lt;canvas&gt;</code>, <code>&lt;figure&gt;</code>,
+            <code>&lt;figcaption&gt;</code>
+          </li>
+        </ul>
+
+        <h3>4. Form & Interactive</h3>
+        <ul>
+          <li>
+            <code>&lt;a&gt;</code>, <code>&lt;button&gt;</code>,
+            <code>&lt;form&gt;</code>, <code>&lt;input&gt;</code>,
+            <code>&lt;select&gt;</code>, <code>&lt;label&gt;</code>,
+            <code>&lt;textarea&gt;</code>
+          </li>
+        </ul>
+
+        <h3>5. Grouping and Tables</h3>
+        <ul>
+          <li>
+            <code>&lt;div&gt;</code>, <code>&lt;ul&gt;</code>,
+            <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code>
+          </li>
+          <li>
+            <code>&lt;table&gt;</code>, <code>&lt;thead&gt;</code>,
+            <code>&lt;tbody&gt;</code>, <code>&lt;tr&gt;</code>,
+            <code>&lt;td&gt;</code>, <code>&lt;th&gt;</code>
+          </li>
+        </ul>
+      </section>
+
+      <section id="categories">
+        <h2>🧩 Categorization of Elements</h2>
+
+        <h3>Empty (Void) Elements — Only Opening Tag</h3>
+        <ul>
+          <li>
+            <code>&lt;br&gt;</code>, <code>&lt;hr&gt;</code>,
+            <code>&lt;img&gt;</code>, <code>&lt;input&gt;</code>,
+            <code>&lt;link&gt;</code>, <code>&lt;meta&gt;</code>,
+            <code>&lt;source&gt;</code>, <code>&lt;area&gt;</code>,
+            <code>&lt;base&gt;</code>, <code>&lt;embed&gt;</code>,
+            <code>&lt;track&gt;</code>, <code>&lt;wbr&gt;</code>
+          </li>
+        </ul>
+
+        <h3>Normal (Container) Elements — Opening and Closing Tags</h3>
+        <ul>
+          <li>
+            <code>&lt;p&gt;...&lt;/p&gt;</code>,
+            <code>&lt;div&gt;...&lt;/div&gt;</code>,
+            <code>&lt;h1&gt;...&lt;/h1&gt;</code>, etc.
+          </li>
+        </ul>
+
+        <h3>Semantic vs Non-Semantic Elements</h3>
+        <ul>
+          <li>
+            <strong>Semantic:</strong> <code>&lt;article&gt;</code>,
+            <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>,
+            <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code>,
+            <code>&lt;main&gt;</code>
+          </li>
+          <li>
+            <strong>Non-Semantic:</strong> <code>&lt;div&gt;</code>,
+            <code>&lt;span&gt;</code>
+          </li>
+        </ul>
+
+        <h3>Interactive Content</h3>
+        <ul>
+          <li>
+            <code>&lt;a&gt;</code>, <code>&lt;button&gt;</code>,
+            <code>&lt;details&gt;</code>, <code>&lt;input&gt;</code>,
+            <code>&lt;label&gt;</code>, <code>&lt;select&gt;</code>,
+            <code>&lt;textarea&gt;</code>
+          </li>
+        </ul>
+
+        <h3>Metadata Content (head only)</h3>
+        <ul>
+          <li>
+            <code>&lt;meta&gt;</code>, <code>&lt;base&gt;</code>,
+            <code>&lt;title&gt;</code>, <code>&lt;link&gt;</code>,
+            <code>&lt;style&gt;</code>, <code>&lt;script&gt;</code>
+          </li>
+        </ul>
+      </section>
+
+      <section id="theory">
+        <h2>🧠 HTML Theory</h2>
+        <p>
+          HTML (HyperText Markup Language) is the standard language for creating
+          web pages. It uses elements or "tags" to structure content like text,
+          images, videos, and forms.
+        </p>
+        <p>
+          Tags usually come in pairs: an opening tag
+          <code>&lt;tag&gt;</code> and a closing tag <code>&lt;/tag&gt;</code>.
+          Some tags, called <strong>void elements</strong>, don’t need a closing
+          tag (e.g., <code>&lt;br&gt;</code>, <code>&lt;img&gt;</code>).
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Tag</th>
+              <th>Description</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>&lt;p&gt;</td>
+              <td>Defines a paragraph</td>
+              <td>Block</td>
+            </tr>
+            <tr>
+              <td>&lt;span&gt;</td>
+              <td>Inline text container</td>
+              <td>Inline</td>
+            </tr>
+            <tr>
+              <td>&lt;div&gt;</td>
+              <td>Generic container</td>
+              <td>Block</td>
+            </tr>
+            <tr>
+              <td>&lt;br&gt;</td>
+              <td>Line break</td>
+              <td>Void / Inline</td>
+            </tr>
+            <tr>
+              <td>&lt;img&gt;</td>
+              <td>Embeds an image</td>
+              <td>Void / Inline</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Code Copilot Playground</p>
+    </footer>
+  </body>
+</html>

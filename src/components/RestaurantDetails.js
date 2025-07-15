@@ -1,10 +1,10 @@
-import "../styles/RestaurantDetails.css";
 import useRestaurantDetails from "../utils/hooks/useRestaurantDetails";
+import RestaurantCategory from "./RestaurantCategory";
 import Shimmer from "./Shimmer";
 
 const RestaurantDetails = () => {
   console.log("[RestaurantDetails] rendered!");
-  const { restaurant, menuItems, error, loading } = useRestaurantDetails();
+  const { restaurant, categories, error, loading } = useRestaurantDetails();
   if (loading) return <Shimmer />;
 
   if (error)
@@ -15,35 +15,44 @@ const RestaurantDetails = () => {
     );
 
   return (
-    <div className="restaurant-details">
-      <h1>{restaurant.name}</h1>
-      <p className="rating-line">
-        ⭐ {restaurant.avgRating} | {restaurant.cuisines?.join(", ")}
-      </p>
-      <p>
-        {restaurant.areaName}, {restaurant.city}
-      </p>
-      <p>🕒 Delivery Time: {restaurant.sla?.deliveryTime} minutes</p>
-      <p className="menu-item-price"> {restaurant.costForTwoMessage}</p>
+    <div
+      id="restaurant-details-page"
+      className="flex flex-col items-center mt-2 px-4 "
+    >
+      <div
+        id="rest-info"
+        className="max-w-screen-md w-full border-b border-gray-200 pb-6 mb-6"
+      >
+        <h1 className="font-bold text-3xl text-gray-800 mb-2">
+          {restaurant.name}
+        </h1>
+        <div className="text-gray-600 space-y-1">
+          <p>
+            <span className="font-semibold">⭐ {restaurant.avgRating}</span> |{" "}
+            {restaurant.cuisines?.join(", ")}
+          </p>
+          <p>
+            {restaurant.areaName}, {restaurant.city}
+          </p>
+          <p>🕒 Delivery Time: {restaurant.sla?.deliveryTime} minutes</p>
+          <p>{restaurant.costForTwoMessage}</p>
+        </div>
+      </div>
 
-      <h2 className="menu-heading">Menu</h2>
-      {menuItems.length === 0 ? (
-        <p>No menu items found.</p>
-      ) : (
-        <ul className="menu-list">
-          {menuItems.map((item, index) => (
-            <li key={`${item.id}-${index}`} className="menu-item">
-              <h3>{item.name}</h3>
-              <p className="menu-item-price">
-                ₹ {item.price ? item.price / 100 : item.defaultPrice / 100}
-              </p>
-              {item.description && (
-                <p className="menu-item-description">{item.description}</p>
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="max-w-screen-md w-full">
+        {categories.length === 0 ? (
+          <p className="text-gray-500">No menu items found.</p>
+        ) : (
+          <div id="rest-category-and-items" className="space-y-2">
+            {categories.map((category) => (
+              <RestaurantCategory
+                key={category.card.card.categoryId}
+                data={category.card.card}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

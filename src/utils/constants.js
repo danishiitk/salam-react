@@ -10,3 +10,6 @@ export const SWIGGY_RESTAURANT_DETAILS_API =
   "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=latitude&lng=longitude&restaurantId=";
 
 export const SWIGGY_API_PROXY = `https://corsproxy.io/?${SWIGGY_API}`;
+
+export const newLogo =
+  "https://www.freepik.com/free-vector/delivery-logo-template_2719784.htm#fromView=keyword&page=1&position=4&uuid=a8f536fe-000d-4c85-9c0e-5ec1d7ab5aeb&query=Food+Delivery+Logo";

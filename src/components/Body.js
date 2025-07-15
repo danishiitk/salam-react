@@ -1,96 +1,117 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import useOnlineStatus from "../utils/hooks/useOnlineStatus";
 import useRestaurantList from "../utils/hooks/useRestaurantList";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { isGoodRestaurant } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
   const online = useOnlineStatus();
   const { restaurants, city, error, lat, long } = useRestaurantList();
   const [searchQuery, setSearchQuery] = useState("");
-  const [filter, setFilter] = useState(null);
+  const [filteredList, setFilteredList] = useState(restaurants);
+  const [topResFilter, setTopResFilter] = useState(false);
 
-  const handleSearchChange = useCallback((e) => {
-    setSearchQuery(e.target.value);
-  }, []);
+  const GoodRestaurant = isGoodRestaurant(RestaurantCard);
+  useEffect(() => {
+    setFilteredList(restaurants);
+  }, [restaurants]);
 
-  const filteredList = useMemo(() => {
-    let list = restaurants;
-
-    if (filter === "topRated") {
-      list = list.filter((r) => r.info.avgRating >= 4.5);
-    }
-
+  const handleTopResFilter = () => {
+    const topRestaurants = filteredList.filter((r) => r.info.avgRating >= 4.5);
+    setFilteredList(topRestaurants);
+    setTopResFilter(true);
+  };
+  const handleSearchSubmit = () => {
+    console.log("search", searchQuery);
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
-      list = list.filter(
+      const searchResult = restaurants.filter(
         ({ info }) =>
           info.id.toString().includes(q) ||
           info.name.toLowerCase().includes(q) ||
           info.cuisines.join(", ").toLowerCase().includes(q)
       );
+      setFilteredList(searchResult);
+    } else {
+      console.log("else search", searchQuery);
+      filteredList !== restaurants ? setFilteredList(restaurants) : null;
     }
-
-    return list;
-  }, [restaurants, searchQuery, filter]);
+  };
 
   if (!online) return <div role="alert">Please connect to Internet!</div>;
 
   return (
-    <main className="app-body">
+    <main className="app-body mb-2">
       {error ? (
         <div className="error" role="alert">
           {error}
         </div>
       ) : (
         <>
-          <section className="body-top-row">
-            <div className="filter-grp">
+          <section
+            id="body-top-row"
+            className="flex gap-5 my-2 p-2 border-y border-gray-300"
+          >
+            <div id="top-res-grp" className="flex gap-2">
               <button
-                className="filter-btn"
-                onClick={() => setFilter("topRated")}
-                aria-pressed={filter === "topRated"}
+                className="px-2 border border-gray-500 rounded-lg hover:bg-gray-200"
+                onClick={() => handleTopResFilter()}
+                aria-pressed={topResFilter === true}
               >
                 Top rated restaurants
               </button>
-              {filter && (
-                <button className="filter-btn" onClick={() => setFilter(null)}>
+              {topResFilter && (
+                <button
+                  className="px-2 border border-s-gray-100 rounded-lg"
+                  onClick={() => {
+                    setFilteredList(restaurants);
+                    setTopResFilter(false);
+                  }}
+                >
                   Clear filter
                 </button>
               )}
             </div>
 
-            <div>{city}</div>
-            <div className="search">
+            <div id="search-feature" className="flex gap-2">
               <input
+                className="px-2 border text-sm border-gray-300 rounded-lg"
                 type="text"
                 value={searchQuery}
                 placeholder="Search by name or cuisine"
-                onChange={handleSearchChange}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 aria-label="Search Restaurants"
               />
-              <button className="search-btn" disabled={!searchQuery.trim()}>
+              <button
+                className="px-2 border border-gray-500 rounded-lg cursor-pointer hover:bg-gray-200"
+                onClick={() => handleSearchSubmit()}
+              >
                 Search
               </button>
             </div>
           </section>
+          <h1 className="text-center mb-2 font-bold text-xl">{city}</h1>
           {filteredList.length === 0 ? (
             <Shimmer />
           ) : (
-            <section className="res-container">
-              {filteredList.map((restaurant) => (
-                <RestaurantCard
-                  key={restaurant.info.id}
-                  id={restaurant.info.id}
-                  resName={restaurant.info.name}
-                  deliveryTime={restaurant.info.sla.deliveryTime}
-                  cuisines={restaurant.info.cuisines}
-                  cloudinaryImageId={restaurant.info.cloudinaryImageId}
-                  avgRating={restaurant.info.avgRating}
-                  lat={lat}
-                  long={long}
-                />
-              ))}
+            <section id="res-container" className="flex flex-wrap gap-1">
+              {filteredList.map((restaurant) =>
+                restaurant.info.avgRating >= 4.5 ? (
+                  <GoodRestaurant
+                    key={restaurant.info.id}
+                    restaurant={restaurant}
+                    lat={lat}
+                    long={long}
+                  />
+                ) : (
+                  <RestaurantCard
+                    key={restaurant.info.id}
+                    restaurant={restaurant}
+                    lat={lat}
+                    long={long}
+                  />
+                )
+              )}
             </section>
           )}
         </>
