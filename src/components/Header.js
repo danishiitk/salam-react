@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { LOGO_URL } from "../utils/constants";
+import logo from "url:../assets/kashaf_eats_logo.svg";
 
 const Header = () => {
   const [btnName, setBtnName] = useState("Login");
@@ -9,9 +9,9 @@ const Header = () => {
   return (
     <div id="header" className="flex justify-between bg-blue-50">
       <img
-        className="w-40 cursor-pointer"
+        className="w-80 cursor-pointer"
         alt="App Logo"
-        src={LOGO_URL}
+        src={logo}
         onClick={() => navigate("/")}
       ></img>
       <nav>

@@ -1,8 +1,8 @@
 import { useCallback, useState, useEffect } from "react";
 import useOnlineStatus from "../utils/hooks/useOnlineStatus";
 import useRestaurantList from "../utils/hooks/useRestaurantList";
-import RestaurantCard, { isGoodRestaurant } from "./RestaurantCard";
-import Shimmer from "./Shimmer";
+import RestaurantCard, { isGoodRestaurant } from "../components/Restaurant/RestaurantCard";
+import Shimmer from "../components/UI/Shimmer";
 
 const Body = () => {
   const online = useOnlineStatus();

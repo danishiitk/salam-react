@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { IMAGE_CDN_URL } from "../utils/constants";
+import { IMAGE_CDN_URL } from "../../utils/constants";
 
 const RestaurantCard = ({ restaurant, lat, long }) => {
   const { id, name, sla, cuisines, cloudinaryImageId, avgRating } =

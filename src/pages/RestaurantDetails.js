@@ -1,6 +1,6 @@
 import useRestaurantDetails from "../utils/hooks/useRestaurantDetails";
-import RestaurantCategory from "./RestaurantCategory";
-import Shimmer from "./Shimmer";
+import RestaurantCategory from "../components/Restaurant/RestaurantCategory";
+import Shimmer from "../components/UI/Shimmer";
 
 const RestaurantDetails = () => {
   console.log("[RestaurantDetails] rendered!");

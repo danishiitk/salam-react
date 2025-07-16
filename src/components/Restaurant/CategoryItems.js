@@ -1,4 +1,4 @@
-import { IMAGE_CDN_URL } from "../utils/constants";
+import { IMAGE_CDN_URL } from "../../utils/constants";
 
 const CategoryItems = ({ itemCards }) => {
   return (

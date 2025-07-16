@@ -42,7 +42,6 @@ const useRestaurantList = () => {
         setCity(userCity);
         console.log("[useRestaurantList} set city");
       } catch (err) {
-        console.error("[useRestaurantList] Failed to fetch restaurants:", err);
         setError("Failed to fetch restaurants");
       }
     };

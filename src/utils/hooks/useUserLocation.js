@@ -19,7 +19,7 @@ const useUserLocation = () => {
           console.log("[useUserLocation} setlong");
           isSet.current = true;
         },
-        (err) => console.error("[useUserLocation] Geolocation error", err),
+        (err) => {},
         { enableHighAccuracy: true }
       );
     }
