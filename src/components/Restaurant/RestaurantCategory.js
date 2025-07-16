@@ -4,16 +4,16 @@ import { useState } from "react";
 const RestaurantCategory = ({ data }) => {
   const [showItems, setShowItems] = useState(false);
   return (
-    <div id="category">
+    <div id="category" className="bg-white shadow-md rounded-lg overflow-hidden">
       <div
         id="category-header"
-        className="p-2 flex justify-between items-center bg-blue-300 cursor-pointer rounded-sm"
+        className="p-4 flex justify-between items-center bg-gradient-to-r from-purple-500 to-indigo-600 text-white cursor-pointer transition-all duration-300 ease-in-out hover:from-purple-600 hover:to-indigo-700"
         onClick={() => {
           setShowItems(!showItems);
         }}
       >
-        <h1 className="font-semibold">{data.title}</h1>
-        <BsArrowDown className="" />
+        <h1 className="font-bold text-xl">{data.title} ({data.itemCards.length})</h1>
+        <BsArrowDown className={`text-2xl transition-transform duration-300 ${showItems ? 'rotate-180' : ''}`} />
       </div>
       {showItems && <CategoryItems itemCards={data.itemCards} />}
     </div>

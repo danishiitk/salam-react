@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { SWIGGY_RESTAURANT_DETAILS_API } from "../constants";
 import { useParams, useSearchParams } from "react-router-dom";
 const useRestaurantDetails = () => {
-  console.log("[useRestaurantDetails] hook initialized!");
+  
   const [restaurant, setRestaurant] = useState({});
   const [categories, setCategories] = useState([]);
   const { id } = useParams();
@@ -13,7 +13,7 @@ const useRestaurantDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const fetchRestaurantDetails = async () => {
-    console.log("[useRestaurantDetails] fetching restaurant details!");
+    
     try {
       setLoading(true);
       const response = await fetch(
@@ -25,7 +25,7 @@ const useRestaurantDetails = () => {
       if (!response.ok) throw new Error("Network response was not ok");
 
       const jsonResponse = await response.json();
-      console.log("response", jsonResponse);
+      
       const restaurantInfo =
         jsonResponse?.data?.cards?.[2]?.card?.card?.info || {};
       const menuCards =
@@ -49,11 +49,11 @@ const useRestaurantDetails = () => {
   };
 
   useEffect(() => {
-    console.log("[useRestaurantDetails] useEffect triggered!");
+    
     fetchRestaurantDetails();
   }, [id, lat, long]);
-  console.log("restaurant", restaurant);
-  console.log("categories", categories);
+  
+  
   return { restaurant, categories, loading, error };
 };
 

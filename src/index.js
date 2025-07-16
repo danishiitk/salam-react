@@ -6,6 +6,8 @@ import Body from "./pages/Body";
 import Contact from "./pages/Contact";
 import Error from "./pages/Error";
 import AppLayout from "./App";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 import "./index.css";
 const Grocery = lazy(() => import("./pages/Grocery"));
 const RestaurantDetails = lazy(() => import("./pages/RestaurantDetails"));
@@ -18,6 +20,8 @@ const routeConfig = createBrowserRouter([
       { path: "/about", element: <AboutClass name={"Danish Ahmad"} /> },
       { path: "/contact", element: <Contact /> },
       { path: `/restaurants/:id`, element: <RestaurantDetails /> },
+      { path: "/login", element: <Login /> },
+      { path: "/profile", element: <Profile /> },
       {
         path: "/grocery",
         element: (

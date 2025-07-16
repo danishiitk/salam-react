@@ -2,9 +2,10 @@ import { useCallback, useState, useEffect } from "react";
 import useOnlineStatus from "../utils/hooks/useOnlineStatus";
 import useRestaurantList from "../utils/hooks/useRestaurantList";
 import RestaurantCard, { isGoodRestaurant } from "../components/Restaurant/RestaurantCard";
+import React, { useState, useEffect, useCallback } from "react";
 import Shimmer from "../components/UI/Shimmer";
 
-const Body = () => {
+const Body = React.memo(() => {
   const online = useOnlineStatus();
   const { restaurants, city, error, lat, long } = useRestaurantList();
   const [searchQuery, setSearchQuery] = useState("");
@@ -16,13 +17,13 @@ const Body = () => {
     setFilteredList(restaurants);
   }, [restaurants]);
 
-  const handleTopResFilter = () => {
+  const handleTopResFilter = useCallback(() => {
     const topRestaurants = filteredList.filter((r) => r.info.avgRating >= 4.5);
     setFilteredList(topRestaurants);
     setTopResFilter(true);
-  };
-  const handleSearchSubmit = () => {
-    console.log("search", searchQuery);
+  }, [filteredList]);
+
+  const handleSearchSubmit = useCallback(() => {
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       const searchResult = restaurants.filter(
@@ -32,16 +33,15 @@ const Body = () => {
           info.cuisines.join(", ").toLowerCase().includes(q)
       );
       setFilteredList(searchResult);
-    } else {
-      console.log("else search", searchQuery);
-      filteredList !== restaurants ? setFilteredList(restaurants) : null;
+    } else if (filteredList !== restaurants) {
+      setFilteredList(restaurants);
     }
-  };
+  }, [searchQuery, restaurants, filteredList]);
 
   if (!online) return <div role="alert">Please connect to Internet!</div>;
 
   return (
-    <main className="app-body mb-2">
+    <main className="container mx-auto p-4 min-h-screen bg-gray-50">
       {error ? (
         <div className="error" role="alert">
           {error}
@@ -50,11 +50,11 @@ const Body = () => {
         <>
           <section
             id="body-top-row"
-            className="flex gap-5 my-2 p-2 border-y border-gray-300"
+            className="flex flex-col md:flex-row items-center justify-between gap-4 my-4 p-4 border-y border-gray-300 bg-white rounded-lg shadow-sm"
           >
-            <div id="top-res-grp" className="flex gap-2">
+            <div id="top-res-grp" className="flex items-center gap-2">
               <button
-                className="px-2 border border-gray-500 rounded-lg hover:bg-gray-200"
+                className="px-4 py-2 border border-gray-500 rounded-lg hover:bg-gray-200 transition-colors duration-200"
                 onClick={() => handleTopResFilter()}
                 aria-pressed={topResFilter === true}
               >
@@ -62,7 +62,7 @@ const Body = () => {
               </button>
               {topResFilter && (
                 <button
-                  className="px-2 border border-s-gray-100 rounded-lg"
+                  className="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors duration-200"
                   onClick={() => {
                     setFilteredList(restaurants);
                     setTopResFilter(false);
@@ -73,9 +73,9 @@ const Body = () => {
               )}
             </div>
 
-            <div id="search-feature" className="flex gap-2">
+            <div id="search-feature" className="flex items-center gap-2">
               <input
-                className="px-2 border text-sm border-gray-300 rounded-lg"
+                className="px-4 py-2 border text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 type="text"
                 value={searchQuery}
                 placeholder="Search by name or cuisine"
@@ -83,18 +83,18 @@ const Body = () => {
                 aria-label="Search Restaurants"
               />
               <button
-                className="px-2 border border-gray-500 rounded-lg cursor-pointer hover:bg-gray-200"
+                className="px-4 py-2 border border-gray-500 rounded-lg cursor-pointer hover:bg-gray-200 transition-colors duration-200"
                 onClick={() => handleSearchSubmit()}
               >
                 Search
               </button>
             </div>
           </section>
-          <h1 className="text-center mb-2 font-bold text-xl">{city}</h1>
+          <h1 className="text-center mb-6 font-extrabold text-3xl text-gray-800">Restaurants in {city}</h1>
           {filteredList.length === 0 ? (
             <Shimmer />
           ) : (
-            <section id="res-container" className="flex flex-wrap gap-1">
+            <section id="res-container" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {filteredList.map((restaurant) =>
                 restaurant.info.avgRating >= 4.5 ? (
                   <GoodRestaurant
@@ -118,6 +118,6 @@ const Body = () => {
       )}
     </main>
   );
-};
+});
 
 export default Body;
