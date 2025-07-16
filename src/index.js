@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
 import AboutClass from "./pages/AboutClass";
 import Body from "./pages/Body";
 import Contact from "./pages/Contact";
@@ -19,9 +20,19 @@ const routeConfig = createBrowserRouter([
       { path: "/", element: <Body /> },
       { path: "/about", element: <AboutClass name={"Danish Ahmad"} /> },
       { path: "/contact", element: <Contact /> },
-      { path: `/restaurants/:id`, element: <RestaurantDetails /> },
+      { path: `/restaurants/:id`, element: (
+          <ProtectedRoute>
+            <RestaurantDetails />
+          </ProtectedRoute>
+        ),
+      },
       { path: "/login", element: <Login /> },
-      { path: "/profile", element: <Profile /> },
+      { path: "/profile", element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
       {
         path: "/grocery",
         element: (
